@@ -233,15 +233,10 @@
   <!-- ================= Featured video (placeholder — swap in real video later) ================= -->
   <div class="feature">
     <div class="wrap">
-      <!-- 4 egocentric clips (720x720), tightly packed in a row, muted autoplay loop.
-           Sources are web-compressed mp4 (~3.6 MB each, from the 177 MB .mov originals).
-           The raw .mov files under static/videos/{1..4}/ are git-ignored (too large for GitHub Pages). -->
-      <div class="video-row">
-        <video src="static/videos/1.mp4" autoplay muted loop playsinline preload="auto"></video>
-        <video src="static/videos/2.mp4" autoplay muted loop playsinline preload="auto"></video>
-        <video src="static/videos/3.mp4" autoplay muted loop playsinline preload="auto"></video>
-        <video src="static/videos/4.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
+      <!-- 4 egocentric clips combined into a single 1x4 strip (1920x480 = 4x 480x480 cells),
+           muted autoplay loop, audio stripped, +faststart. Built with ffmpeg hstack from the
+           four square source clips (2x 1080x1080 + 2x 720x720) in ~/Desktop/video. -->
+      <video src="static/videos/combined.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
   </div>
 
@@ -409,7 +404,7 @@
   <script>
     (function () {
       function startVideos() {
-        document.querySelectorAll('.video-row video').forEach(function (v) {
+        document.querySelectorAll('.feature video').forEach(function (v) {
           v.muted = true;        // set as a property, not just the attribute — needed for autoplay
           v.defaultMuted = true;
           v.playsInline = true;
